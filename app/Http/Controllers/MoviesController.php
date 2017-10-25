@@ -15,7 +15,7 @@ class MoviesController extends Controller
      */
     public function index()
     {
-        var_dump(request());
+        //var_dump(request());
         $movies = Movie::all();
         return $movies;
     }
@@ -39,13 +39,14 @@ class MoviesController extends Controller
     public function store(Request $request)
     {
         $movie = new Movie();
-        // $request->validate([
-        //     'name' => 'required | unique:movies',
-        //     'director' => 'required',
-        //     'duration' => 'required | integer | min: 1 | max: 500',
-        //     'imageUrl' => 'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
-        //     'releaseDate' => 'required | unique:movies',
-        // ]);
+        $request->validate([
+            'name' => 'required | unique:movies,name',
+            'director' => 'required',
+            'duration' => 'required | integer | min: 1 | max: 500',
+            'imageUrl' => 'required | url',
+            'releaseDate' => 'required | unique:movies,release_date',
+        ]);
+        // dd('kdfjbgsdkjg');
         $movie->name = $request->input('name');
         $movie->director = $request->input('director');
         $movie->image_url = $request->input('imageUrl');
@@ -89,19 +90,19 @@ class MoviesController extends Controller
     public function update(Request $request, $id)
     {
         $movie = Movie::find($id);
-        // $request->validate([
-        //     'name' => 'required | unique:movies',
-        //     'director' => 'required',
-        //     'duration' => 'required | integer | min: 1 | max: 500',
-        //     'imageUrl' => 'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
-        //     'releaseDate' => 'required | unique:movies',
-        // ]);
+        $request->validate([
+            'name' => 'required | unique:movies',
+            'director' => 'required',
+            'duration' => 'required | integer | min: 1 | max: 500',
+            'imageUrl' => 'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
+            'releaseDate' => 'required | unique:movies',
+        ]);
     
         $movie->name = $request->input('name');
         $movie->director = $request->input('director');
-        $movie->imageUrl = $request->input('imageUrl');
+        $movie->image_url = $request->input('imageUrl');
         $movie->duration = $request->input('duration');
-        $movie->releaseDate = $request->input('releaseDate');
+        $movie->release_date = $request->input('releaseDate');
         $movie->genres = $request->input('genres');
         $movie->update();
        
