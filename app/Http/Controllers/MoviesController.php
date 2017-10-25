@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Movie;
 
@@ -13,10 +14,18 @@ class MoviesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //var_dump(request());
-        $movies = Movie::all();
+        $name = $request->query('name');
+        if($name){
+            $movies = DB::table('movies')
+                ->where('name', 'like', "%$name%")
+                ->get();
+            
+        } else {
+            $movies = Movie::all();
+        }
+        
         return $movies;
     }
 
