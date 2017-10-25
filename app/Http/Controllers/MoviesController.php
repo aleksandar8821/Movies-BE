@@ -17,19 +17,25 @@ class MoviesController extends Controller
     public function index(Request $request)
     {
 
-
-        $name = $request->query('name');
-        if($name){
-            // $movies = DB::table('movies')
-            //     ->where('name', 'like', "%$name%")
-            //     ->get();
-
-            $movies = Movie::search($name);
-            
-        } else {
-            $movies = Movie::all();
-        }
+        $name = "";
+        $term = "";
         
+        $query = $request->query();
+        
+        if(array_key_exists('name', $query)){
+            $name = $query['name'];
+        }
+
+        if(array_key_exists('term', $query)) {
+            $term = $query['term'];
+        } 
+
+            // cak je i ovo visak, jer ce ako su prazni query stringovi uhvatice sve filmove
+            // $movies = Movie::all();
+        
+        
+        $movies = Movie::search($name, $term);
+
         return $movies;
     }
 
