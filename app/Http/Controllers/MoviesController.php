@@ -32,11 +32,22 @@ class MoviesController extends Controller
 
             // cak je i ovo visak, jer ce ako su prazni query stringovi uhvatice sve filmove
             // $movies = Movie::all();
-        
-        
-        $movies = Movie::search($name, $term);
 
-        return $movies;
+        if(array_key_exists('take', $query)){
+            $take = $query['take'];
+        }
+
+        if(array_key_exists('skip', $query)) {
+            $skip = $query['skip'];
+        } 
+
+        
+        
+        $movies = Movie::search($name, $term, $take=20, $skip=0);
+
+        //return $movies;
+
+        return view('index', compact('movies'));
     }
 
     /**

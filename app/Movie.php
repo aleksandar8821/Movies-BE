@@ -28,14 +28,13 @@ class Movie extends Model
       'genres' => 'array'
     ];
 
-    public static function search($name, $term)
+    public static function search($name, $term, $take, $skip)
     {
        // $result = DB::table('movies')
        //          ->where('name', 'like', "%$term%")
        //          ->get();
 
-        $result = self::where('name', 'like', "%$name%")->where('name', 'like', "%$term%")
-                ->get();
+        $result = self::where('name', 'like', "%$name%")->where('name', 'like', "%$term%")->skip($skip)->take($take)->paginate(5);
 
 
         return $result;
