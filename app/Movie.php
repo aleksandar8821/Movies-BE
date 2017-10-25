@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Support\Facades\DB;
+
 class Movie extends Model
 {
 
@@ -25,5 +27,18 @@ class Movie extends Model
 		protected $casts = [
       'genres' => 'array'
     ];
+
+    public static function search($term)
+    {
+       // $result = DB::table('movies')
+       //          ->where('name', 'like', "%$term%")
+       //          ->get();
+
+         $result = self::where('name', 'like', "%$term%")
+                ->get();
+
+
+        return $result;
+    }
     
 }

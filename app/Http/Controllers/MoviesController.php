@@ -16,11 +16,15 @@ class MoviesController extends Controller
      */
     public function index(Request $request)
     {
+
+
         $name = $request->query('name');
         if($name){
-            $movies = DB::table('movies')
-                ->where('name', 'like', "%$name%")
-                ->get();
+            // $movies = DB::table('movies')
+            //     ->where('name', 'like', "%$name%")
+            //     ->get();
+
+            $movies = Movie::search($name);
             
         } else {
             $movies = Movie::all();
