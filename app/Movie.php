@@ -34,7 +34,7 @@ class Movie extends Model
        //          ->where('name', 'like', "%$term%")
        //          ->get();
 
-        $result = self::where('name', 'like', "%$name%")->where('name', 'like', "%$term%")->skip($skip)->take($take)->paginate(5);
+        $result = self::where('name', 'like', "%$name%")->where('name', 'like', "%$term%")->skip($skip)->take($take)->get();
 
 
         return $result;

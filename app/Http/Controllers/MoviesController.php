@@ -45,9 +45,9 @@ class MoviesController extends Controller
         
         $movies = Movie::search($name, $term, $take=20, $skip=0);
 
-        //return $movies;
+        return $movies;
 
-        return view('index', compact('movies'));
+        // return view('index', compact('movies'));
     }
 
     /**
