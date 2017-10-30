@@ -18,8 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::middleware('api')->get('movies', 'MoviesController@index');
-Route::get('movies/{id}', 'MoviesController@show');
-Route::post('movies', 'MoviesController@store');
-Route::put('movies/{id}', 'MoviesController@update');
-Route::delete('movies/{id}', 'MoviesController@destroy');
+Route::middleware('api')->get('movies/{id}', 'MoviesController@show');
+Route::middleware('api')->post('movies', 'MoviesController@store');
+Route::middleware('api')->put('movies/{id}', 'MoviesController@update');
+Route::middleware('api')->delete('movies/{id}', 'MoviesController@destroy');
 
